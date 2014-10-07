@@ -1,5 +1,5 @@
 /************************************************************************************************************
- * WindSpeed.h - Arduino library for retrieving distance (in cm) from the analog Sharp GP2Y0A41Y         *
+ * Anemometer.h - Arduino library for retrieving distance (in cm) from the analog Sharp GP2Y0A41Y         *
  * Distance sensor                                                                                   *
  * Copyright 2014 Joel Cormack (joel.greta@gmail.com)                                       *
  ************************************************************************************************************
@@ -29,15 +29,15 @@ threshold = the number to be added to the previousValue to create upper and lowe
 */
  
  
-#ifndef WindSpeed_h
-#define WindSpeed_h
+#ifndef Anemometer_h
+#define Anemometer_h
 
 #include "Arduino.h"
 
-class WindSpeed
+class Anemometer
 {
   public:
-    WindSpeed (int pin, int radius, int interval);
+    Anemometer (int pin, int radius, int interval);
     double mph();
     
     

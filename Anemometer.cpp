@@ -1,5 +1,5 @@
 /************************************************************************************************************
- * WindSpeed.cpp - Arduino library for making an extractor into an anenometer         			    *                                                                                  *
+ * Anemometer.cpp - Arduino library for making an extractor into an anenometer         			    *                                                                                  *
  * Copyright 2014 Joel Cormack (joel.greta@gmail.com)                                       		    *
  ************************************************************************************************************
 
@@ -21,7 +21,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "Arduino.h"
-#include "WindSpeed.h"
+#include "Anemometer.h"
 
 /*this library gives back the miles per hour speed of a wind extractor. the magnet is fixed to the circumference of the extractor and a
  *hall effect sensor is wired into an arduino. the class takes the pin number of the hall effect sensor, the circumference of the extractor
@@ -31,7 +31,7 @@
  *radius = radius of center of extractor to sensor in centimeters
  *interval = time interval in milliseconds */
 
-WindSpeed::WindSpeed(int pin, int radius, int interval) {
+Anemometer::Anemometer(int pin, int radius, int interval) {
   
     _pin=pin;
     _radius=radius;
@@ -42,7 +42,7 @@ WindSpeed::WindSpeed(int pin, int radius, int interval) {
 
 //the following function uses the formulae from http://www.dfrobot.com/wiki/index.php/SHARP_GP2Y0A41SK0F_IR_ranger_sensor_%284-30cm%29_SKU:SEN0143
 //converts the signal from the analog pin to cm
-double WindSpeed::mph() {
+double Anemometer::mph() {
 	_rotationsPerInterval = countrotations();			//call countrotations
 	_rotationsPerSecond = (_rotationsPerInterval/_interval)*1000;	//convert roations back to milliseconds and multiply by 1000 to get rotations per second
 	_metersPerSecond = _rotationsPerSecond * circuference;		//times the distance in meters with roations per hour to get meters per hour
@@ -51,11 +51,11 @@ double WindSpeed::mph() {
 	
 }
 
-float WindSpeed::mps2mph(float _mps){
+float Anemometer::mps2mph(float _mps){
     return _mps * 2.2369362920544;
 }
 
-int WindSpeed::circumference(){
+int Anemometer::circumference(){
     _radiusMeters = _radius/100;
     return (2 * _radiusMeters) * M_PI;
 }
@@ -64,7 +64,7 @@ int WindSpeed::circumference(){
 *and returns rotations per interval
 */
 		
-int WindSpeed::countRotations(){
+int Anemometer::countRotations(){
     _rotations=0;
     //while time passed is less than interval, count rotations
     while((unsigned long)(millis() - _previousMillis) <= _interval){
